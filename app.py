@@ -2,19 +2,17 @@ import psutil
 import time
 
 def scaling_monitor():
-    print("--- EduScale E-Learning Monitoring Started ---")
+    print("--- EduScale E-Learning Monitoring Started ---", flush=True) # flush=True add pannunga
     while True:
         cpu = psutil.cpu_percent(interval=1)
-        print(f"Current Traffic Load: {cpu}%")
+        print(f"Current Traffic Load: {cpu}%", flush=True)
         
         if cpu > 70:
-            print(f">>> Current Load: {cpu}% | ALERT: High Traffic! Scaling up...")
-        elif cpu < 40:  # 20-ku badhula 40 nu mathunga
-            print(f">>> Current Load: {cpu}% | Normal Traffic: Running on Minimum Servers.")
-        else:
-            print(f">>> Current Load: {cpu}% | Moderate Traffic: Monitoring...")
+            print(">>> ALERT: High Traffic! Scaling up...", flush=True)
+        elif cpu < 40:
+            print(">>> Normal Traffic: Minimum Servers.", flush=True)
         
-        time.sleep(2)
+        time.sleep(1) # Interval-ah 1 second-ah kammi pannunga
 
 if __name__ == "__main__":
     scaling_monitor()
