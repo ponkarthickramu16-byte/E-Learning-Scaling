@@ -8,9 +8,11 @@ def scaling_monitor():
         print(f"Current Traffic Load: {cpu}%")
         
         if cpu > 70:
-            print(">>> ALERT: High Traffic! Scaling up New Servers...")
-        elif cpu < 20:
-            print(">>> Normal Traffic: Running on Minimum Servers.")
+            print(f">>> Current Load: {cpu}% | ALERT: High Traffic! Scaling up...")
+        elif cpu < 40:  # 20-ku badhula 40 nu mathunga
+            print(f">>> Current Load: {cpu}% | Normal Traffic: Running on Minimum Servers.")
+        else:
+            print(f">>> Current Load: {cpu}% | Moderate Traffic: Monitoring...")
         
         time.sleep(2)
 
