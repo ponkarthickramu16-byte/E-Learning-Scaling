@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Fetching Code from GitHub...'
-                git 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
+                git 'https://github.com/ponkarthickramu16-byte/E-Learning-Scaling.git'
             }
         }
         stage('Install Dependencies') {
