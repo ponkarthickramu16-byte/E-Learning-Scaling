@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    triggers {
+        pollSCM('* * * * *') // 1 min-ku oru vaati check pannum
+    }
     stages {
         stage('Checkout') {
             steps {
