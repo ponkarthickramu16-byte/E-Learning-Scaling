@@ -12,15 +12,16 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker Image...'
-                // Unga laptop-la Docker path sariya irukka nu paarunga
+                // Docker image-ah build panrom. Idhu unga Dockerfile-ah use pannum.
                 bat 'docker build -t e-learning-monitor .'
             }
         }
 
-        stage('Run Container (CD)') {
+        stage('Run Deployment (CD)') {
             steps {
-                echo 'Starting Containerized Monitoring...'
-                // Palaiya container irundha delete panni fresh-aa run pannum
+                echo 'Deploying Container...'
+                // Palaiya container irundha thookittu fresh-aa run pannuvom
+                // -d potta background-la run aagum, Jenkins wait pannaadhu.
                 bat 'docker rm -f my-monitor-app || true'
                 bat 'docker run -d --name my-monitor-app e-learning-monitor'
             }
