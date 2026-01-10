@@ -4,6 +4,18 @@ pipeline {
         pollSCM('* * * * *') // 1 min-ku oru vaati check pannum
     }
     stages {
+        stage('Build Docker Image') {
+            steps {
+             // Docker image-ah build panrom
+                bat 'docker build -t e-learning-monitor .'
+            }
+        }
+        stage('Run Container') {
+            steps {
+            // Palaiya container irundha stop panni thirumba run panrom
+                bat 'docker run --name monitoring-app e-learning-monitor'
+            }
+        }
         stage('Checkout') {
             steps {
                 echo 'Fetching Code from GitHub...'
