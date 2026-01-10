@@ -7,7 +7,7 @@ def scaling_monitor():
         cpu = psutil.cpu_percent(interval=1)
         print(f"Current Traffic Loading : {cpu}%", flush=True)
         
-        if cpu > 50:
+        if cpu > 60:
             print(">>> ALERT: High Traffic! Scaling up...", flush=True)
         elif cpu < 40:
             print(">>> Normal Traffic: Minimum Servers.", flush=True)
