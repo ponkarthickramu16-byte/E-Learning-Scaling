@@ -1,37 +1,28 @@
 pipeline {
     agent any
-    triggers {
-        pollSCM('* * * * *') // 1 min-ku oru vaati check pannum
-    }
+
     stages {
-        stage('Build Docker Image') {
-            steps {
-            // Full path kudutha Jenkins-ala thappikka mudiyaadhu
-                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" build -t e-learning-monitor .'
-            }
-        }
-        stage('Run Container') {
-            steps {
-            // Palaiya container irundha stop panni thirumba run panrom
-                bat 'docker run --name monitoring-app e-learning-monitor'
-            }
-        }
         stage('Checkout') {
             steps {
                 echo 'Fetching Code from GitHub...'
-                git 'https://github.com/ponkarthickramu16-byte/E-Learning-Scaling.git'
+                git branch: 'master', url: 'https://github.com/ponkarthickramu16-byte/E-Learning-Scaling.git'
             }
         }
-        stage('Install Dependencies') {
+
+        stage('Build Docker Image') {
             steps {
-                echo 'Installing psutil...'
-                bat '"C:\\Users\\ponka\\AppData\\Local\\Programs\\Python\\Python310\\python.exe" -m pip install psutil'
+                echo 'Building Docker Image...'
+                // Unga laptop-la Docker path sariya irukka nu paarunga
+                bat 'docker build -t e-learning-monitor .'
             }
         }
-        stage('Run Monitoring') {
+
+        stage('Run Container (CD)') {
             steps {
-                echo 'Starting Scaling Monitor...'
-                bat '"C:\\Users\\ponka\\AppData\\Local\\Programs\\Python\\Python310\\python.exe" app.py'
+                echo 'Starting Containerized Monitoring...'
+                // Palaiya container irundha delete panni fresh-aa run pannum
+                bat 'docker rm -f my-monitor-app || true'
+                bat 'docker run -d --name my-monitor-app e-learning-monitor'
             }
         }
     }
