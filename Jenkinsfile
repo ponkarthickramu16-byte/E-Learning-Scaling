@@ -6,8 +6,8 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-             // Docker image-ah build panrom
-                bat 'docker build -t e-learning-monitor .'
+            // Full path kudutha Jenkins-ala thappikka mudiyaadhu
+                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe" build -t e-learning-monitor .'
             }
         }
         stage('Run Container') {
