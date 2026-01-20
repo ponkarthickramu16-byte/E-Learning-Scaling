@@ -26,5 +26,12 @@ pipeline {
                 bat 'docker run -d --name my-monitor-app e-learning-monitor'
             }
         }
+        stage('Deploy to K8s') {
+            steps {
+                echo 'Deploying to Kubernetes Cluster...'
+                bat 'kubectl apply -f deployment.yaml'
+                bat 'kubectl rollout restart deployment/elearning-monitor-deployment'
+            }
+        }
     }
 }
