@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: elearning-monitor-deployment
+  name: elearning-monitor
 spec:
-  replicas: 2 # Rendu container eppovum odum (High Availability)
+  replicas: 2  # Rendu pod odum, High Availability-ku
   selector:
     matchLabels:
       app: monitor
@@ -14,5 +14,5 @@ spec:
     spec:
       containers:
       - name: monitor-app
-        image: e-learning-monitor # Unga Docker image peru
-        imagePullPolicy: Never # Minikube local image-ahye eduthu paarkkum
+        image: e-learning-monitor  # Neenga build panna adhe peru
+        imagePullPolicy: Never      # External cloud-la irundhu pull pannaama local-aa edukkum
