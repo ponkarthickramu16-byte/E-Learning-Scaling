@@ -33,12 +33,12 @@ pipeline {
                 bat 'kubectl --kubeconfig="C:\\Users\\ponka\\.kube\\config" apply -f deployment.yaml'
             }
         }
-        stage('SonarQube Analysis') {
+       stage('SonarQube Analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'sonar-scanner'
-                    withSonarQubeEnv('sonar-server') {
-                    // Intha command ippo C:\sonar-scanner path-ah edukkum
+                def scannerHome = tool 'sonar-scanner'
+                withSonarQubeEnv('sonar-server') {
+                // Inga path-ah correct-aa double backslash (\) vachu ezhudhunga
                     bat "${scannerHome}\\bin\\sonar-scanner.bat -Dsonar.projectKey=E-Learning-Scaling -Dsonar.sources=."
                     }
                 }
