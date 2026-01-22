@@ -34,19 +34,12 @@ pipeline {
             }
         }
         stage('SonarQube Analysis') {
-    steps {
-        script {
-            // Scanner tool-ah edukkurom
-            def scannerHome = tool 'sonar-scanner'
-            
-            // Sonar Server environment ulla porom
-            withSonarQubeEnv('sonar-server') {
-                // Windows-la backslash (\) mukkiyam, adhaan error varudhu
-                bat "${scannerHome}\\bin\\sonar-scanner.bat " +
-                    "-Dsonar.projectKey=E-Learning-Scaling " +
-                    "-Dsonar.sources=. " +
-                    "-Dsonar.host.url=http://localhost:9000 " +
-                    "-Dsonar.login=sonar-token" 
+            steps {
+                script {
+                    def scannerHome = tool 'sonar-scanner'
+                    withSonarQubeEnv('sonar-server') {
+                    // Intha command ippo C:\sonar-scanner path-ah edukkum
+                    bat "${scannerHome}\\bin\\sonar-scanner.bat -Dsonar.projectKey=E-Learning-Scaling -Dsonar.sources=."
                     }
                 }
             }
