@@ -33,5 +33,16 @@ pipeline {
                 bat 'kubectl --kubeconfig="C:\\Users\\ponka\\.kube\\config" apply -f deployment.yaml'
             }
         }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    // SonarQube scanner-ah trigger pannudhu
+                    def scannerHome = tool 'sonar-scanner' 
+                    withSonarQubeEnv('sonar-server') {
+                        bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=E-Learning-Scaling"
+                    }
+                }
+            }
+        }
     }
 }
