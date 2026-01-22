@@ -36,10 +36,16 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    // SonarQube scanner-ah trigger pannudhu
-                    def scannerHome = tool 'sonar-scanner' 
+                    def scannerHome = tool 'sonar-scanner'
                     withSonarQubeEnv('sonar-server') {
-                        bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=E-Learning-Scaling"
+                    // Node.js code-kaaga sila extra information sethurukkom
+                    bat """
+                    ${scannerHome}/bin/sonar-scanner \
+                    -Dsonar.projectKey=E-Learning-Scaling \
+                    -Dsonar.sources=. \
+                    -Dsonar.language=js \
+                    -Dsonar.sourceEncoding=UTF-8
+                    """
                     }
                 }
             }
