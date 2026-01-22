@@ -1,14 +1,16 @@
-# Step 1: Python base image-ah edukkirom
-FROM python:3.10-slim
+# Step 1: Use Node.js base image
+FROM node:18-alpine
 
-# Step 2: Container-kulla oru folder create pannikiraom
+# Step 2: Set working directory
 WORKDIR /app
 
-# Step 3: Namma app.py-ah container-kulla copy panrom
-COPY app.py .
+# Step 3: Copy package files and install dependencies
+COPY package*.json ./
+RUN npm install
 
-# Step 4: Monitoring-ku dheyvaiyana psutil-ah install panrom
-RUN pip install psutil
+# Step 4: Copy all files
+COPY . .
 
-# Step 5: Container start aagumpodhu indha command run aagum
-CMD ["python", "app.py"]
+# Step 5: Start the app
+EXPOSE 3000
+CMD ["node", "app.js"]
