@@ -29,8 +29,8 @@ pipeline {
         stage('Deploy to K8s') {
             steps {
                 echo 'Deploying to Kubernetes Cluster...'
-                bat 'kubectl apply -f deployment.yaml'
-                bat 'kubectl rollout restart deployment/elearning-monitor-deployment'
+                // --kubeconfig use panni file path-ah direct-aa solrom
+                bat 'kubectl --kubeconfig="C:\\Users\\ponka\\.kube\\config" apply -f deployment.yaml'
             }
         }
     }
