@@ -50,5 +50,13 @@ pipeline {
                 // Neenga yedutha Grafana snapshot thaan inga proof
             }
         }
+        stage('Trivy Security Scan') {
+            steps {
+                echo 'Scanning Docker Image for Vulnerabilities...'
+                // trivy image-ah scan panni report kaatum
+                // --severity HIGH,CRITICAL kudutha mukkkiyamaana error mattum kaattum
+                bat "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image e-learning-monitor"
+            }
+        }
     }
 }
